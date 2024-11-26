@@ -1,37 +1,37 @@
-class WeatherModal {
-  late LocationModal locationModal;
-  late CurrentModal currentModal;
-  late ForcatModal forcatModal;
+class Weather {
+  late Location locationModal;
+  late Current currentModal;
+  late Forcat forcatModal;
 
-  WeatherModal(this.locationModal, this.currentModal, this.forcatModal);
+  Weather(this.locationModal, this.currentModal, this.forcatModal);
 
-  factory WeatherModal.fromJson(Map m1) {
-    return WeatherModal(
-        LocationModal.fromJson(m1['location']),
-        CurrentModal.fromJson(m1['current']),
-        ForcatModal.fromJson(m1['forecast']));
+  factory Weather.fromJson(Map m1) {
+    return Weather(
+        Location.fromJson(m1['location']),
+        Current.fromJson(m1['current']),
+        Forcat.fromJson(m1['forecast']));
   }
 
 
 }
 
-class LocationModal {
+class Location {
   late String name, region, country, localtime;
 
-  LocationModal(this.name, this.region, this.country, this.localtime);
+  Location(this.name, this.region, this.country, this.localtime);
 
-  factory LocationModal.fromJson(Map m1) {
-    return LocationModal(
+  factory Location.fromJson(Map m1) {
+    return Location(
         m1['name'], m1['region'], m1['country'], m1['localtime']);
   }
 }
 
-class CurrentModal {
+class Current {
   late double temp_c, temp_f, wind_mph, wind_kph, pressure_in, pressure_mb, uv;
   late int is_day, humidity, cloud;
   late Condition condition;
 
-  CurrentModal(
+  Current(
       this.temp_c,
       this.temp_f,
       this.wind_mph,
@@ -44,8 +44,8 @@ class CurrentModal {
       this.pressure_mb,
       this.condition);
 
-  factory CurrentModal.fromJson(Map m1) {
-    return CurrentModal(
+  factory Current.fromJson(Map m1) {
+    return Current(
         m1['temp_c'].toDouble(),
         m1['temp_f'].toDouble(),
         m1['wind_mph'].toDouble(),
@@ -70,13 +70,13 @@ class Condition {
   }
 }
 
-class ForcatModal {
+class Forcat {
   late List<Forecastday> forcastday = [];
 
-  ForcatModal(this.forcastday);
+  Forcat(this.forcastday);
 
-  factory ForcatModal.fromJson(Map m1) {
-    return ForcatModal((m1['forecastday'] as List)
+  factory Forcat.fromJson(Map m1) {
+    return Forcat((m1['forecastday'] as List)
         .map(
           (e) => Forecastday.fromJson(e),
     )
@@ -86,47 +86,47 @@ class ForcatModal {
 
 class Forecastday {
   late String date;
-  late DayModal day;
-  late AstroModal astro;
-  late List<HourModal> hour = [];
+  late Day day;
+  late Astro astro;
+  late List<Hour> hour = [];
 
   Forecastday(this.date, this.day, this.hour,this.astro);
 
   factory Forecastday.fromJson(Map m1) {
     return Forecastday(
       m1['date'],
-      DayModal.fromJson(m1['day']),
+      Day.fromJson(m1['day']),
       (m1['hour'] as List)
           .map(
-            (e) => HourModal.fromJson(e),
+            (e) => Hour.fromJson(e),
       )
           .toList(),
-      AstroModal.fromJson(m1['astro']),
+      Astro.fromJson(m1['astro']),
     );
   }
 }
 
-class AstroModal
+class Astro
 {
   late String sunrise,sunset;
 
-  AstroModal(this.sunrise,this.sunset);
+  Astro(this.sunrise,this.sunset);
 
-  factory AstroModal.fromJson(Map m1)
+  factory Astro.fromJson(Map m1)
   {
-    return AstroModal(m1['sunrise'], m1['sunset']);
+    return Astro(m1['sunrise'], m1['sunset']);
   }
 }
 
-class DayModal {
+class Day {
   late double maxtemp_c, mintemp_c;
   late DayConditionModal dayConditionModal;
   late int daily_chance_of_rain;
 
-  DayModal(this.maxtemp_c, this.mintemp_c, this.dayConditionModal,this.daily_chance_of_rain);
+  Day(this.maxtemp_c, this.mintemp_c, this.dayConditionModal,this.daily_chance_of_rain);
 
-  factory DayModal.fromJson(Map m1) {
-    return DayModal(m1['maxtemp_c'].toDouble(), m1['mintemp_c'].toDouble(),
+  factory Day.fromJson(Map m1) {
+    return Day(m1['maxtemp_c'].toDouble(), m1['mintemp_c'].toDouble(),
         DayConditionModal.fromJson(m1['condition']),m1['daily_chance_of_rain']);
   }
 }
@@ -141,16 +141,16 @@ class DayConditionModal {
   }
 }
 
-class HourModal {
+class Hour {
   late String time;
   late double temp_c;
   late int is_day;
   late HourConditionModal hourConditionModal;
 
-  HourModal(this.time, this.temp_c, this.is_day, this.hourConditionModal);
+  Hour(this.time, this.temp_c, this.is_day, this.hourConditionModal);
 
-  factory HourModal.fromJson(Map m1) {
-    return HourModal(m1['time'], m1['temp_c'].toDouble(), m1['is_day'],
+  factory Hour.fromJson(Map m1) {
+    return Hour(m1['time'], m1['temp_c'].toDouble(), m1['is_day'],
         HourConditionModal.fromJson(m1['condition']));
   }
 }
